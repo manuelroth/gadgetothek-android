@@ -5,18 +5,14 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ch.manuelroth.gadgetothek_android.library.Callback;
@@ -136,7 +132,7 @@ public class RegisterActivity extends Activity {
                         CharSequence text = "Registration successful";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
-                        //finishActivity(1);
+                        finish();
                     } else {
                         showProgress(false);
                         Context context = RegisterActivity.this.getApplicationContext();
