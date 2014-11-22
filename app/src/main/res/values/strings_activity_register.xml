@@ -1,0 +1,8 @@
+<resources>
+
+    <!-- Strings related to login -->
+    <string name="register_text">Geben Sie Ihre Daten ein um einen neuen Account zu registrieren</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_matrikelnr">Matrikel Nummer</string>
+    <string name="prompt_secondpassword">Repeat password</string>
+</resources>
