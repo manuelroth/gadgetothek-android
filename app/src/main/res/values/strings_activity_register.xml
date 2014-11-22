@@ -5,4 +5,5 @@
     <string name="prompt_name">Name</string>
     <string name="prompt_matrikelnr">Matrikel Nummer</string>
     <string name="prompt_secondpassword">Repeat password</string>
+    <string name="error_passwords_notequal">Passwords must be equal</string>
 </resources>

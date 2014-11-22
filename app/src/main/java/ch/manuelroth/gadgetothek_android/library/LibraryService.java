@@ -25,7 +25,7 @@ import ch.manuelroth.gadgetothek_android.bl.Reservation;
 public class LibraryService {
 
     public static LoginToken token;
-    private static String serverUrl = "http://192.168.1.123:4730";
+    private static String serverUrl = "http://192.168.1.123:4730/public";
     private static List<Callback<?>> listeners = new ArrayList<Callback<?>>();
 
     public static boolean IsLoggedIn()
