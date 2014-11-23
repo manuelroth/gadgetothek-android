@@ -10,10 +10,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -27,8 +30,8 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 public class LoginActivity extends Activity{
 
     // UI references.
-    private EditText emailView;
-    private EditText passwordView;
+    private EditText email;
+    private EditText password;
     private View progressView;
     private View loginFormView;
 
@@ -38,24 +41,33 @@ public class LoginActivity extends Activity{
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        emailView = (EditText) findViewById(R.id.email);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    attemptLogin();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
-        passwordView = (EditText) findViewById(R.id.password);
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button signInButton = (Button) findViewById(R.id.email_sign_in_button);
+        signInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        Button mRegisterButton = (Button) findViewById(R.id.register_button);
-        mRegisterButton.setOnClickListener(new OnClickListener() {
+        Button registerButton = (Button) findViewById(R.id.register_button);
+        registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-                //intent.putExtra("chartLink", ChartLink);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,31 +83,31 @@ public class LoginActivity extends Activity{
      */
     public void attemptLogin() {
         // Reset errors.
-        emailView.setError(null);
-        passwordView.setError(null);
+        email.setError(null);
+        password.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = emailView.getText().toString();
-        String password = passwordView.getText().toString();
+        String email = this.email.getText().toString();
+        String password = this.password.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            passwordView.setError(getString(R.string.error_invalid_password));
-            focusView = passwordView;
+            this.password.setError(getString(R.string.error_invalid_password));
+            focusView = this.password;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            emailView.setError(getString(R.string.error_field_required));
-            focusView = emailView;
+            this.email.setError(getString(R.string.error_field_required));
+            focusView = this.email;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            emailView.setError(getString(R.string.error_invalid_email));
-            focusView = emailView;
+            this.email.setError(getString(R.string.error_invalid_email));
+            focusView = this.email;
             cancel = true;
         }
 

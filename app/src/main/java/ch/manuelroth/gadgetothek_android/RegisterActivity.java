@@ -8,11 +8,14 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ch.manuelroth.gadgetothek_android.library.Callback;
@@ -22,11 +25,11 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 public class RegisterActivity extends Activity {
 
     // UI references.
-    private EditText nameView;
-    private EditText emailView;
-    private EditText matrikelNrView;
-    private EditText firstPasswordView;
-    private EditText secondPasswordView;
+    private EditText name;
+    private EditText email;
+    private EditText studentNumber;
+    private EditText firstPassword;
+    private EditText secondPassword;
     private View registerFormView;
     private View registerProgressView;
 
@@ -35,11 +38,22 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Set up the register form.
-        nameView = (EditText) findViewById(R.id.name);
-        emailView = (EditText) findViewById(R.id.email);
-        matrikelNrView = (EditText) findViewById(R.id.matrikelnr);
-        firstPasswordView = (EditText) findViewById(R.id.first_password);
-        secondPasswordView = (EditText) findViewById(R.id.second_password);
+        name = (EditText) findViewById(R.id.name);
+        email = (EditText) findViewById(R.id.email);
+        studentNumber = (EditText) findViewById(R.id.matrikelnr);
+        firstPassword = (EditText) findViewById(R.id.first_password);
+        secondPassword = (EditText) findViewById(R.id.second_password);
+        secondPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    attemptRegister();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
         // Listener for registerButton
         Button registerButton = (Button) findViewById(R.id.register_button);
@@ -56,62 +70,62 @@ public class RegisterActivity extends Activity {
 
     public void attemptRegister(){
         // Reset errors.
-        nameView.setError(null);
-        emailView.setError(null);
-        matrikelNrView.setError(null);
-        firstPasswordView.setError(null);
-        secondPasswordView.setError(null);
+        name.setError(null);
+        email.setError(null);
+        studentNumber.setError(null);
+        firstPassword.setError(null);
+        secondPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String name = nameView.getText().toString();
-        String email = emailView.getText().toString();
-        String matrikelNr = matrikelNrView.getText().toString();
-        String firstPassword = firstPasswordView.getText().toString();
-        String secondPassword = secondPasswordView.getText().toString();
+        String name = this.name.getText().toString();
+        String email = this.email.getText().toString();
+        String matrikelNr = studentNumber.getText().toString();
+        String firstPassword = this.firstPassword.getText().toString();
+        String secondPassword = this.secondPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a name
         if(name.isEmpty()){
-            nameView.setError(getString(R.string.error_field_required));
+            this.name.setError(getString(R.string.error_field_required));
         }
 
         // Check for matrikelNr
         if(matrikelNr.isEmpty()){
-            matrikelNrView.setError(getString(R.string.error_field_required));
+            studentNumber.setError(getString(R.string.error_field_required));
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            emailView.setError(getString(R.string.error_field_required));
-            focusView = emailView;
+            this.email.setError(getString(R.string.error_field_required));
+            focusView = this.email;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            emailView.setError(getString(R.string.error_invalid_email));
-            focusView = emailView;
+            this.email.setError(getString(R.string.error_invalid_email));
+            focusView = this.email;
             cancel = true;
         }
 
         // Check for a valid firstPassword, if the user entered one.
         if (!TextUtils.isEmpty(firstPassword) && !isPasswordValid(firstPassword)) {
-            firstPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = firstPasswordView;
+            this.firstPassword.setError(getString(R.string.error_invalid_password));
+            focusView = this.firstPassword;
             cancel = true;
         }
 
         // Check for a valid secondPassword, if the user entered one.
         if (!TextUtils.isEmpty(secondPassword) && !isPasswordValid(secondPassword)) {
-            secondPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = secondPasswordView;
+            this.secondPassword.setError(getString(R.string.error_invalid_password));
+            focusView = this.secondPassword;
             cancel = true;
         }
 
 
         // Check for equality of both passwords
         if(!firstPassword.equals(secondPassword)){
-            secondPasswordView.setError(getString(R.string.error_passwords_notequal));
-            focusView = secondPasswordView;
+            this.secondPassword.setError(getString(R.string.error_passwords_notequal));
+            focusView = this.secondPassword;
             cancel = true;
         }
 
