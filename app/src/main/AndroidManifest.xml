@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.manuelroth.gadgetothek_android" >
+    <uses-sdk android:minSdkVersion="19"
+        android:targetSdkVersion="21" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
