@@ -3,7 +3,8 @@
 
     <string name="app_name">Gadgetothek</string>
     <string name="title_activity_main_view">Übersicht</string>
-    <string name="hello_world">Ausleihen und Reservationen</string>
+    <string name="ausleihe_activity_mainview">Ihre aktuellen Ausleihen</string>
+    <string name="reservation_activity_mainview">Ihre aktuellen Reservationen</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_register">Registrieren</string>
 

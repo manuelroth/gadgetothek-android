@@ -20,7 +20,8 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_text" android:textSize="18sp"/>
+                android:text="@string/login_text"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
             <EditText android:id="@+id/email" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_email"

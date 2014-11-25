@@ -21,7 +21,8 @@
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_text" android:textSize="18sp"/>
+                android:text="@string/register_text"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
             <EditText android:id="@+id/name" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_margin="5dp" android:hint="@string/prompt_name"

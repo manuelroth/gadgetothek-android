@@ -6,7 +6,28 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="ch.manuelroth.gadgetothek_android.MainViewActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical">
+
+            <TextView android:text="@string/ausleihe_activity_mainview" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <ListView
+                android:id="@+id/loanListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></ListView>
+
+            <TextView android:text="@string/reservation_activity_mainview" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <ListView
+                android:id="@+id/reservationListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></ListView>
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
