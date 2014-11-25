@@ -18,7 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.manuelroth.gadgetothek_android.bl.Gadget;
 import ch.manuelroth.gadgetothek_android.bl.Loan;
 import ch.manuelroth.gadgetothek_android.bl.Reservation;
 import ch.manuelroth.gadgetothek_android.library.Callback;
@@ -31,6 +30,8 @@ public class MainViewActivity extends Activity {
     public ListView reservationListView;
     public List<Loan> loanList;
     public List<Reservation> reservationList;
+    LoanAdapter loanAdapter = null;
+    ReservationAdapter reservationAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MainViewActivity extends Activity {
             loanList = new ArrayList<Loan>();
         }
 
-        LoanAdapter loanAdapter = new LoanAdapter(this, loanList);
+        loanAdapter = new LoanAdapter(this, R.layout.rowlayout, loanList);
         loanListView.setAdapter(loanAdapter);
 
         reservationListView = (ListView) findViewById(R.id.reservationListView);
@@ -63,7 +64,7 @@ public class MainViewActivity extends Activity {
             reservationList = new ArrayList<Reservation>();
         }
 
-        ReservationAdapter reservationAdapter = new ReservationAdapter(this, reservationList);
+        reservationAdapter = new ReservationAdapter(this, R.layout.rowlayout, reservationList);
         reservationListView.setAdapter(reservationAdapter);
 
         Button logoutButton = (Button) findViewById(R.id.logout);
@@ -119,8 +120,8 @@ public class MainViewActivity extends Activity {
         private final Context context;
         private final List<Loan> values;
 
-        public LoanAdapter(Context context, List<Loan> values){
-            super(context, R.layout.rowlayout, values);
+        public LoanAdapter(Context context, int textViewResourceId, List<Loan> values){
+            super(context, textViewResourceId, values);
             this.context = context;
             this.values = values;
         }
@@ -129,8 +130,8 @@ public class MainViewActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             Loan loan = values.get(position);
             if(convertView == null){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.rowlayout, parent, false);
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.rowlayout, null);
             }
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
@@ -147,8 +148,8 @@ public class MainViewActivity extends Activity {
         private final Context context;
         private final List<Reservation> values;
 
-        public ReservationAdapter(Context context, List<Reservation> values){
-            super(context, R.layout.rowlayout, values);
+        public ReservationAdapter(Context context, int textViewResourceId, List<Reservation> values){
+            super(context, textViewResourceId, values);
             this.context = context;
             this.values = values;
         }
@@ -158,8 +159,8 @@ public class MainViewActivity extends Activity {
             Reservation reservation = values.get(position);
 
             if(convertView == null){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.rowlayout, null);
             }
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
