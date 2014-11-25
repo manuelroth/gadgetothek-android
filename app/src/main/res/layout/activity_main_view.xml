@@ -14,34 +14,76 @@
 
             <TextView android:text="@string/ausleihe_activity_mainview" android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <TextView android:id="@+id/loanheader1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nameColumnDescription"/>
+
+                <TextView android:id="@+id/loanheader2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:text="@string/dueDateColumnDescription"/>
+
+            </LinearLayout>
             <ListView
                 android:id="@+id/loanListView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
 
             <TextView android:text="@string/reservation_activity_mainview" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/reservationheader1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nameColumnDescription"/>
+
+                <TextView android:id="@+id/reservationheader2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:text="@string/lentColumnDescription"/>
+
+            </LinearLayout>
+
             <ListView
                 android:id="@+id/reservationListView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
 
             <Button android:id="@+id/deleteReservation" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" android:text="@string/deleteReservation"
-                android:textStyle="bold" />
+                android:layout_marginBottom="10dp" android:layout_marginTop="15dp"
+                android:text="@string/deleteReservation" android:textStyle="bold"/>
 
             <Button android:id="@+id/createReservation" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp" android:text="@string/createReservation"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <Button android:id="@+id/logout" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp" android:layout_marginTop="30dp"
-                android:text="@string/logout" android:textStyle="bold" />
+                android:text="@string/logout" android:textStyle="bold"/>
 
         </LinearLayout>
     </ScrollView>

@@ -15,7 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ch.manuelroth.gadgetothek_android.bl.Loan;
@@ -28,8 +31,8 @@ public class MainViewActivity extends Activity {
 
     public ListView loanListView;
     public ListView reservationListView;
-    public List<Loan> loanList;
-    public List<Reservation> reservationList;
+    public List<Loan> loanList = new ArrayList<Loan>();
+    public List<Reservation> reservationList = new ArrayList<Reservation>();
     LoanAdapter loanAdapter = null;
     ReservationAdapter reservationAdapter = null;
 
@@ -42,29 +45,22 @@ public class MainViewActivity extends Activity {
         LibraryService.getLoansForCustomer(new Callback<List<Loan>>() {
             @Override
             public void notfiy(List<Loan> input) {
-                MainViewActivity.this.loanList = input;
+                MainViewActivity.this.loanList.addAll(input);
             }
         });
 
-        if(loanList == null){
-            loanList = new ArrayList<Loan>();
-        }
-
-        loanAdapter = new LoanAdapter(this, R.layout.rowlayout, loanList);
+        loanAdapter = new LoanAdapter(this, R.layout.rowlayout, this.loanList);
         loanListView.setAdapter(loanAdapter);
 
         reservationListView = (ListView) findViewById(R.id.reservationListView);
         LibraryService.getReservationsForCustomer(new Callback<List<Reservation>>() {
             @Override
             public void notfiy(List<Reservation> input) {
-                MainViewActivity.this.reservationList = input;
+                MainViewActivity.this.reservationList.addAll(input);
             }
         });
-        if(reservationList == null){
-            reservationList = new ArrayList<Reservation>();
-        }
 
-        reservationAdapter = new ReservationAdapter(this, R.layout.rowlayout, reservationList);
+        reservationAdapter = new ReservationAdapter(this, R.layout.rowlayout, this.reservationList);
         reservationListView.setAdapter(reservationAdapter);
 
         Button logoutButton = (Button) findViewById(R.id.logout);
@@ -138,7 +134,10 @@ public class MainViewActivity extends Activity {
             TextView dueDateView = (TextView) convertView.findViewById(R.id.date);
 
             gadgetNameView.setText(loan.getGadget().getName());
-            dueDateView.setText(loan.overDueDate().toString());
+            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+            Date overDueDate = loan.overDueDate();
+            String formattedDate = formatter.format(overDueDate);
+            dueDateView.setText(formattedDate);
 
             return convertView;
         }
@@ -167,7 +166,10 @@ public class MainViewActivity extends Activity {
             TextView lentTillView = (TextView) convertView.findViewById(R.id.date);
 
             gadgetNameView.setText(reservation.getGadget().getName());
-            lentTillView.setText(reservation.getReservationDate().toString());
+            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+            Date reservationDate = reservation.getReservationDate();
+            String formattedDate = formatter.format(reservationDate);
+            lentTillView.setText(formattedDate);
 
             return convertView;
         }
