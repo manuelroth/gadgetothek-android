@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="deleteReservation">Reservation löschen</string>
+    <string name="createReservation">Reservieren</string>
+    <string name="logout">logout</string>
+</resources>
