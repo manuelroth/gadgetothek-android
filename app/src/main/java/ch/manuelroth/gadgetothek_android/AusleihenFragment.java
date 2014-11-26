@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,13 +43,6 @@ public class AusleihenFragment extends Fragment {
 
         loanAdapter = new LoanAdapter(this.getActivity(), R.layout.rowlayout, this.loanList);
         loanListView.setAdapter(loanAdapter);
-        loanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Loan loan = (Loan)parent.getItemAtPosition(position);
-
-            }
-        });
         return rootView;
     }
 
