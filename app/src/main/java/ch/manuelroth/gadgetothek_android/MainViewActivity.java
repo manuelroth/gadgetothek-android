@@ -63,6 +63,14 @@ public class MainViewActivity extends Activity {
         reservationAdapter = new ReservationAdapter(this, R.layout.rowlayout, this.reservationList);
         reservationListView.setAdapter(reservationAdapter);
 
+        Button reservationButton = (Button) findViewById(R.id.createReservation);
+        reservationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO create intent for creating reservation
+            }
+        });
+
         Button logoutButton = (Button) findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
