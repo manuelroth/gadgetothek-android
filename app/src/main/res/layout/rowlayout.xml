@@ -6,15 +6,13 @@
         <TextView
             android:id="@+id/gadgetName"
             android:layout_column="1"
-            android:text="placeholder"
-            android:padding="5dip"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>    />
+            android:padding="10dip"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
         <TextView
             android:id="@+id/date"
             android:gravity="right"
             android:layout_column="1"
-            android:padding="5dip"
-            android:text="xx.xx.xxxx"
+            android:padding="10dip"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
     </TableRow>
 </TableLayout>

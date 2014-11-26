@@ -128,7 +128,7 @@ public class LoginActivity extends Activity{
                         CharSequence text = "Login successful";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
-                        Intent intent = new Intent(LoginActivity.this.getApplicationContext(), MainViewActivity.class );
+                        Intent intent = new Intent(context, MainViewActivity.class );
                         startActivity(intent);
                     }else{
                         showProgress(false);

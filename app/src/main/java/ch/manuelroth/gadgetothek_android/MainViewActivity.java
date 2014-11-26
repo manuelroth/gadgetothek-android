@@ -1,14 +1,18 @@
 package ch.manuelroth.gadgetothek_android;
 
-import android.app.Activity;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,80 +31,48 @@ import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
 
-public class MainViewActivity extends Activity {
+public class MainViewActivity extends FragmentActivity implements ActionBar.TabListener{
 
-    public ListView loanListView;
-    public ListView reservationListView;
-    public List<Loan> loanList = new ArrayList<Loan>();
-    public List<Reservation> reservationList = new ArrayList<Reservation>();
-    LoanAdapter loanAdapter = null;
-    ReservationAdapter reservationAdapter = null;
+    private ViewPager viewPager;
+    private TabsPagerAdapter mAdapter;
+    private ActionBar actionBar;
+    private String[] tabs = {"Ausleihen", "Reservationen"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
-        loanListView = (ListView) findViewById(R.id.loanListView);
-        LibraryService.getLoansForCustomer(new Callback<List<Loan>>() {
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override
-            public void notfiy(List<Loan> input) {
-                MainViewActivity.this.loanList.addAll(input);
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
             }
         });
 
-        loanAdapter = new LoanAdapter(this, R.layout.rowlayout, this.loanList);
-        loanListView.setAdapter(loanAdapter);
-
-        reservationListView = (ListView) findViewById(R.id.reservationListView);
-        LibraryService.getReservationsForCustomer(new Callback<List<Reservation>>() {
-            @Override
-            public void notfiy(List<Reservation> input) {
-                MainViewActivity.this.reservationList.addAll(input);
-            }
-        });
-
-        reservationAdapter = new ReservationAdapter(this, R.layout.rowlayout, this.reservationList);
-        reservationListView.setAdapter(reservationAdapter);
-
-        Button reservationButton = (Button) findViewById(R.id.createReservation);
-        reservationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO create intent for creating reservation
-            }
-        });
-
-        Button logoutButton = (Button) findViewById(R.id.logout);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LibraryService.logout(new Callback<Boolean>() {
-                    @Override
-                    public void notfiy(Boolean input) {
-                        if(input){
-                            Intent intent = new Intent(MainViewActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            Context context = MainViewActivity.this.getApplicationContext();
-                            CharSequence text = "Logout successful";
-                            int duration = Toast.LENGTH_SHORT;
-                            Toast.makeText(context, text, duration).show();
-                        }else{
-                            Context context = MainViewActivity.this.getApplicationContext();
-                            CharSequence text = "Logout unsuccessful";
-                            int duration = Toast.LENGTH_SHORT;
-                            Toast.makeText(context, text, duration).show();
-                        }
-                    }
-                });
-            }
-        });
+        for(String tabName : tabs){
+            actionBar.addTab(actionBar.newTab().setText(tabName).setTabListener(this));
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_view, menu);
         return true;
     }
@@ -115,71 +87,44 @@ public class MainViewActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_logout){
+            LibraryService.logout(new Callback<Boolean>() {
+                @Override
+                public void notfiy(Boolean input) {
+                    if(input){
+                        Context context = MainViewActivity.this.getApplicationContext();
+                        CharSequence text = "Logout successful";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, text, duration).show();
+                        Intent intent = new Intent(context, LoginActivity.class );
+                        startActivity(intent);
+                    }else{
+                        Context context = MainViewActivity.this.getApplicationContext();
+                        CharSequence text = "Logout unsuccessful";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, text, duration).show();
+                    }
+                }
+            });
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private class LoanAdapter extends ArrayAdapter<Loan>{
-        private final Context context;
-        private final List<Loan> values;
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
 
-        public LoanAdapter(Context context, int textViewResourceId, List<Loan> values){
-            super(context, textViewResourceId, values);
-            this.context = context;
-            this.values = values;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Loan loan = values.get(position);
-            if(convertView == null){
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.rowlayout, null);
-            }
-
-            TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
-            TextView dueDateView = (TextView) convertView.findViewById(R.id.date);
-
-            gadgetNameView.setText(loan.getGadget().getName());
-            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-            Date overDueDate = loan.overDueDate();
-            String formattedDate = formatter.format(overDueDate);
-            dueDateView.setText(formattedDate);
-
-            return convertView;
-        }
     }
 
-    private class ReservationAdapter extends ArrayAdapter<Reservation>{
-        private final Context context;
-        private final List<Reservation> values;
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
-        public ReservationAdapter(Context context, int textViewResourceId, List<Reservation> values){
-            super(context, textViewResourceId, values);
-            this.context = context;
-            this.values = values;
-        }
+    }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Reservation reservation = values.get(position);
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
-            if(convertView == null){
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.rowlayout, null);
-            }
-
-            TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
-            TextView lentTillView = (TextView) convertView.findViewById(R.id.date);
-
-            gadgetNameView.setText(reservation.getGadget().getName());
-            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-            Date reservationDate = reservation.getReservationDate();
-            String formattedDate = formatter.format(reservationDate);
-            lentTillView.setText(formattedDate);
-
-            return convertView;
-        }
     }
 }

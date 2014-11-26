@@ -2,7 +2,7 @@
 <resources>
     <string name="deleteReservation">Reservation löschen</string>
     <string name="createReservation">Reservieren</string>
-    <string name="logout">Logout</string>
+    <string name="action_logout">Logout</string>
     <string name="noLoans">Keine Ausleihen. Möchtest du ein Gadget ausleihen?</string>
     <string name="noReservations">Keine Reservationen. Möchtest du ein Gadget reservieren?</string>
     <string name="nameColumnDescription">Name</string>
