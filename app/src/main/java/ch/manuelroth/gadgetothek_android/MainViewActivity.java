@@ -104,8 +104,12 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
                 }
             });
             return true;
+        } else if(id == R.id.action_reservations) {
+            Context context = MainViewActivity.this.getApplicationContext();
+            Intent intent = new Intent(context, ReservationActivity.class);
+            startActivity(intent);
+            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
