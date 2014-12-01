@@ -88,22 +88,19 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_logout){
-            LibraryService.logout(new Callback<Boolean>() {
-                @Override
-                public void notfiy(Boolean input) {
-                    if(input){
-                        Context context = MainViewActivity.this.getApplicationContext();
-                        CharSequence text = "Logout successful";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast.makeText(context, text, duration).show();
-                        Intent intent = new Intent(context, LoginActivity.class );
-                        startActivity(intent);
-                    }else{
-                        Context context = MainViewActivity.this.getApplicationContext();
-                        CharSequence text = "Logout unsuccessful";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast.makeText(context, text, duration).show();
-                    }
+            LibraryService.logout(input -> {
+                if(input){
+                    Context context = MainViewActivity.this.getApplicationContext();
+                    CharSequence text = "Logout successful";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, text, duration).show();
+                    Intent intent = new Intent(context, LoginActivity.class );
+                    startActivity(intent);
+                }else{
+                    Context context = MainViewActivity.this.getApplicationContext();
+                    CharSequence text = "Logout unsuccessful";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, text, duration).show();
                 }
             });
             return true;
@@ -115,7 +112,6 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         viewPager.setCurrentItem(tab.getPosition());
-
     }
 
     @Override

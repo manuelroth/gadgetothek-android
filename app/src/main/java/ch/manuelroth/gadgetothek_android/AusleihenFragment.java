@@ -22,27 +22,22 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
 public class AusleihenFragment extends Fragment {
 
-    public ListView loanListView;
-    public List<Loan> loanList = new ArrayList<Loan>();
-    LoanAdapter loanAdapter = null;
-
+    private ListView loanListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_ausleihen, container, false);
-
         loanListView = (ListView) rootView.findViewById(R.id.loanListView);
-        LibraryService.getLoansForCustomer(new Callback<List<Loan>>() {
-            @Override
-            public void notfiy(List<Loan> input) {
-                AusleihenFragment.this.loanList.addAll(input);
-            }
-        });
-
-        loanAdapter = new LoanAdapter(this.getActivity(), R.layout.rowlayout, this.loanList);
+        LoanAdapter loanAdapter = new LoanAdapter(this.getActivity(), R.layout.rowlayout, new ArrayList<>());
         loanListView.setAdapter(loanAdapter);
+
+        LibraryService.getLoansForCustomer(input -> AusleihenFragment.this.getActivity().runOnUiThread(() -> {
+            loanAdapter.clear();
+            loanAdapter.addAll(input);
+        }));
+
         return rootView;
     }
 
