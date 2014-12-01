@@ -3,6 +3,7 @@ package ch.manuelroth.gadgetothek_android;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import java.util.List;
 import ch.manuelroth.gadgetothek_android.bl.Reservation;
 import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
+import com.melnykov.fab.FloatingActionButton;
 
 public class ReservationFragment extends Fragment {
 
@@ -37,6 +39,13 @@ public class ReservationFragment extends Fragment {
         reservationListView = (ListView) rootView.findViewById(R.id.reservationListView);
         reservationAdapter = new ReservationAdapter(this.getActivity(), R.layout.rowlayout, new ArrayList<>());
         reservationListView.setAdapter(reservationAdapter);
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.attachToListView(reservationListView);
+        fab.setOnClickListener(v -> {
+            Context context = ReservationFragment.this.getActivity().getApplicationContext();
+            Intent intent = new Intent(context, ReservationActivity.class);
+            startActivity(intent);
+        });
 
         LibraryService.getReservationsForCustomer(input -> {
             ReservationFragment.this.getActivity().runOnUiThread(() -> {
