@@ -29,4 +29,7 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'com.ning:async-http-client:1.8.7'
     compile 'com.melnykov:floatingactionbutton:1.0.9'
+    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.0.1' //Core
+    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.0.1' //Optional for built-in cards
+    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1' //Optional for recycler view
 }
