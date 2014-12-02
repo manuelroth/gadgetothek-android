@@ -74,6 +74,11 @@ public class LoginActivity extends Activity{
 
         loginFormView = findViewById(R.id.login_form);
         progressView = findViewById(R.id.login_progress);
+
+        //Login m@hsr.ch
+        email.setText("m@hsr.ch");
+        password.setText("12345");
+        signInButton.performClick();
     }
 
     /**
