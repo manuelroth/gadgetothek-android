@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity{
         // Set up the login form.
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
+        password.setTypeface( Typeface.DEFAULT );
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

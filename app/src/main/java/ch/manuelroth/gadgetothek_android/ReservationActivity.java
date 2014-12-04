@@ -35,25 +35,24 @@ public class ReservationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
-        gadgetListView = (ListView) ReservationActivity.this.findViewById(R.id.reservationListView);
+        gadgetListView = (ListView) ReservationActivity.this.findViewById(R.id.gadgetListView);
+        gadgetAdapter = new GadgetAdapter(this, R.layout.rowlayout, this.gadgetList);
+        gadgetListView.setAdapter(gadgetAdapter);
 
         LibraryService.getGadgets(new Callback<List<Gadget>>() {
             @Override
             public void notfiy(List<Gadget> input) {
-                gadgetList.addAll(input);
+                gadgetAdapter.addAll(input);
             }
         });
 
-        gadgetAdapter = new GadgetAdapter(this, R.layout.rowlayout, this.gadgetList);
-        gadgetListView.setAdapter(gadgetAdapter);
         gadgetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Gadget gadget = (Gadget) parent.getItemAtPosition(position);
                 AlertDialog.Builder adb=new AlertDialog.Builder(ReservationActivity.this);
                 adb.setTitle("Submit reservation");
-                adb.setMessage("Are you sure you want to reserve this gadget?" + position);
-                final int positionToReserve = position;
+                adb.setMessage("Are you sure you want to reserve this gadget?");
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

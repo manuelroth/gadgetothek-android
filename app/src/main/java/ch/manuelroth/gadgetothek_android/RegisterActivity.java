@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -42,7 +43,9 @@ public class RegisterActivity extends Activity {
         email = (EditText) findViewById(R.id.email);
         studentNumber = (EditText) findViewById(R.id.matrikelnr);
         firstPassword = (EditText) findViewById(R.id.first_password);
+        firstPassword.setTypeface( Typeface.DEFAULT );
         secondPassword = (EditText) findViewById(R.id.second_password);
+        secondPassword.setTypeface( Typeface.DEFAULT );
         secondPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
