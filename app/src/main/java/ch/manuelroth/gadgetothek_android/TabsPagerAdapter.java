@@ -13,8 +13,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
             case 0:
-                return new AusleihenFragment();
+                return new GadgetsFragment();
             case 1:
+                return new AusleihenFragment();
+            case 2:
                 return new ReservationFragment();
         }
 

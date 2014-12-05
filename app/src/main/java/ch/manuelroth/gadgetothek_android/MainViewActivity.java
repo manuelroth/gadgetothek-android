@@ -17,7 +17,7 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    private String[] tabs = {"Ausleihen", "Reservationen"};
+    private String[] tabs = {"Gadgets", "Ausleihen", "Reservationen"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
