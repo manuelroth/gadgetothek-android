@@ -1,18 +1,13 @@
 <resources>
+
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="AppTheme.NoTitleBar" parent="android:Theme.Holo.Light.NoActionBar">
-    </style>
+    <style name="AppTheme.NoTitleBar" parent="android:Theme.Holo.Light.NoActionBar"></style>
 
-    <style name="MyActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/primary</item>
-    </style>
-
-    <style name="MyTabBar" parent="android:Widget.Holo.Light.ActionBar.TabBar">
-        <item name="android:background">@color/primary_dark</item>
     </style>
 
     <style name="customButton">
