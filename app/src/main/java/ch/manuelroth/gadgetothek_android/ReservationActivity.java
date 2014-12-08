@@ -28,57 +28,21 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 public class ReservationActivity extends Activity {
 
     private ListView gadgetListView;
-    private List<Gadget> gadgetList = new ArrayList<Gadget>();
-    private GadgetAdapter gadgetAdapter = null;
+    private ArrayAdapter gadgetAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         gadgetListView = (ListView) ReservationActivity.this.findViewById(R.id.gadgetListView);
-        gadgetAdapter = new GadgetAdapter(this, R.layout.rowlayout, this.gadgetList);
+        gadgetListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        gadgetListView.setItemsCanFocus(false);
+
+        gadgetAdapter = new ArrayAdapter<Gadget>(this, android.R.layout.simple_list_item_multiple_choice, new ArrayList<>());
         gadgetListView.setAdapter(gadgetAdapter);
 
-        LibraryService.getGadgets(new Callback<List<Gadget>>() {
-            @Override
-            public void notfiy(List<Gadget> input) {
-                gadgetAdapter.addAll(input);
-            }
-        });
-
-        gadgetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Gadget gadget = (Gadget) parent.getItemAtPosition(position);
-                AlertDialog.Builder adb=new AlertDialog.Builder(ReservationActivity.this);
-                adb.setTitle("Submit reservation");
-                adb.setMessage("Are you sure you want to reserve this gadget?");
-                adb.setNegativeButton("Cancel", null);
-                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //I have no idea why this method would return a List<Loan> but have stupidly implemented it that way regardless - doesn't seem to work though...
-                        LibraryService.reserveGadget(gadget, new Callback<List<Loan>>() {
-                            @Override
-                            public void notfiy(List<Loan> input) {
-                                if(input.size() > 0){
-                                    Context context = ReservationActivity.this.getApplicationContext();
-                                    CharSequence text = "Reservation successfully submitted.";
-                                    int duration = Toast.LENGTH_SHORT;
-                                    Toast.makeText(context, text, duration).show();
-                                }else{
-                                    Context context = ReservationActivity.this.getApplicationContext();
-                                    CharSequence text = "Reservation could not be submitted!";
-                                    int duration = Toast.LENGTH_SHORT;
-                                    Toast.makeText(context, text, duration).show();
-                                }
-                            }
-                        });
-                    }});
-                adb.show();
-            }
-        });
+        LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,32 +64,5 @@ public class ReservationActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private class GadgetAdapter extends ArrayAdapter<Gadget> {
-        private final Context context;
-        private final List<Gadget> values;
-
-        public GadgetAdapter(Context context, int textViewResourceId, List<Gadget> values){
-            super(context, textViewResourceId, values);
-            this.context = context;
-            this.values = values;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Gadget gadget = values.get(position);
-
-            if(convertView == null){
-                LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.rowlayout, null);
-            }
-
-            TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
-
-            gadgetNameView.setText(gadget.getName());
-
-            return convertView;
-        }
     }
 }
