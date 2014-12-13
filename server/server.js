@@ -80,33 +80,10 @@ gadgets.push({ name: 'Android10', manufacturer: "Samsung", price: 500, inventory
 loans.push({ id: "40", gadgetId: '20', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
 loans.push({ id: "41", gadgetId: '21', customerId: "10", pickupDate : "2014-08-10T06:10:37.032Z", returnDate : null});
 loans.push({ id: "42", gadgetId: '22', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "43", gadgetId: '23', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "44", gadgetId: '24', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "45", gadgetId: '25', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '26', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '27', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '28', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '29', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '30', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '31', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '32', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "46", gadgetId: '33', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
 
 reservations.push({ id: "80", gadgetId: '20', customerId: "10", reservationDate : "2014-08-22T06:10:37.032Z", finished: false});
 reservations.push({ id: "81", gadgetId: '21', customerId: "10", reservationDate : "2014-08-22T06:10:37.032Z", finished: false});
 reservations.push({ id: "82", gadgetId: '22', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "83", gadgetId: '23', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "84", gadgetId: '24', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "85", gadgetId: '25', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "86", gadgetId: '26', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "87", gadgetId: '27', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "88", gadgetId: '28', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "89", gadgetId: '29', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "90", gadgetId: '30', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "91", gadgetId: '31', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "92", gadgetId: '32', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-reservations.push({ id: "93", gadgetId: '33', customerId: "10", reservationDate : new Date().toJSON(), finished: false});
-
 
 
 
