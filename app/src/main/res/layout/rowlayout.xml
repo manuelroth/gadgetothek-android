@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:stretchColumns="1">
+    android:layout_height="match_parent" android:stretchColumns="2">
     <TableRow>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/thumbnail"
+            android:layout_column="1"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_margin="8dip" />
         <TextView
             android:id="@+id/gadgetName"
-            android:layout_column="1"
+            android:layout_column="2"
             android:padding="10dip"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
         <TextView
             android:id="@+id/date"
             android:gravity="right"
-            android:layout_column="1"
+            android:layout_column="3"
             android:padding="10dip"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
     </TableRow>

@@ -32,4 +32,6 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.0.1' //Core
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.0.1' //Optional for built-in cards
     compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1' //Optional for recycler view
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'de.hdodenhof:circleimageview:1.2.1'
 }

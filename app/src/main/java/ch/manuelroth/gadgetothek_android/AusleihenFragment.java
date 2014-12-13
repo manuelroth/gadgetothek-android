@@ -1,14 +1,19 @@
 package ch.manuelroth.gadgetothek_android;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,6 +28,7 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 public class AusleihenFragment extends Fragment {
 
     private ListView loanListView;
+    private ImageLoader imageLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +43,10 @@ public class AusleihenFragment extends Fragment {
             loanAdapter.clear();
             loanAdapter.addAll(input);
         }));
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
 
         return rootView;
     }
@@ -59,6 +69,9 @@ public class AusleihenFragment extends Fragment {
                 LayoutInflater inflater = (LayoutInflater) AusleihenFragment.this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.rowlayout, null);
             }
+
+            ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.thumbnail);
+            imageLoader.displayImage("http://recodetech.files.wordpress.com/2014/09/iphones-1685.jpg?w=256&h=256&crop=1", thumbnailView);
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
             TextView dueDateView = (TextView) convertView.findViewById(R.id.date);

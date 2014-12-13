@@ -3,17 +3,21 @@ package ch.manuelroth.gadgetothek_android;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +33,7 @@ public class ReservationFragment extends Fragment {
 
     private ListView reservationListView;
     private ReservationAdapter reservationAdapter;
+    private ImageLoader imageLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +88,10 @@ public class ReservationFragment extends Fragment {
             adb.show();
         });
 
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
+        
         return rootView;
     }
 
@@ -114,6 +123,9 @@ public class ReservationFragment extends Fragment {
                 LayoutInflater inflater = (LayoutInflater) ReservationFragment.this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.rowlayout, null);
             }
+
+            ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.thumbnail);
+            imageLoader.displayImage("http://www.homegenie.it/images/logos/rpiicon.png", thumbnailView);
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
             TextView lentTillView = (TextView) convertView.findViewById(R.id.date);
