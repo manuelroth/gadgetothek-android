@@ -41,9 +41,16 @@ public class ReservationFragment extends Fragment {
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.attachToListView(reservationListView);
         fab.setOnClickListener(v -> {
-            Context context = ReservationFragment.this.getActivity().getApplicationContext();
-            Intent intent = new Intent(context, ReservationActivity.class);
-            startActivity(intent);
+            if(reservationAdapter.getCount() == 3){
+                Context context = ReservationFragment.this.getActivity().getApplicationContext();
+                CharSequence text = "Only three reservation at the same time supported";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            }else{
+                Context context = ReservationFragment.this.getActivity().getApplicationContext();
+                Intent intent = new Intent(context, ReservationActivity.class);
+                startActivity(intent);
+            }
         });
 
         LibraryService.getReservationsForCustomer(input -> {
