@@ -1,22 +1,14 @@
 package ch.manuelroth.gadgetothek_android;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -50,15 +42,15 @@ public class ReservationActivity extends Activity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
-            SparseBooleanArray sp=gadgetListView.getCheckedItemPositions();
-            for(int i=0;i<sp.size();i++){
+            SparseBooleanArray sp = gadgetListView.getCheckedItemPositions();
+            for (int i = 0; i < sp.size(); i++) {
                 int gadgetIndex = sp.keyAt(i);
-                if(sp.valueAt(i)){
-                    Gadget gadget = (Gadget)gadgetAdapter.getItem(gadgetIndex);
-                    LibraryService.reserveGadget(gadget,new Callback<List<Loan>>() {
+                if (sp.valueAt(i)) {
+                    Gadget gadget = (Gadget) gadgetAdapter.getItem(gadgetIndex);
+
+                    LibraryService.reserveGadget(gadget, new Callback<List<Loan>>() {
                         @Override
                         public void notfiy(List<Loan> input) {
-
                         }
                     });
                 }

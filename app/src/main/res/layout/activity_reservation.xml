@@ -1,11 +1,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReservationActivity">
-        <ListView
-            android:id="@+id/gadgetListView"
-            android:choiceMode="multipleChoice"
-            android:background="?android:attr/activatedBackgroundIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
+    <ListView
+        android:id="@+id/gadgetListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:choiceMode="multipleChoice" />
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_add_white_24dp"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        fab:fab_colorRipple="@color/ripple" />
+
 </FrameLayout>
