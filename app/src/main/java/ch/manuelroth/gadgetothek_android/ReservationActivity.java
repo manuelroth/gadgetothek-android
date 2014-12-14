@@ -21,6 +21,8 @@ import ch.manuelroth.gadgetothek_android.bl.Loan;
 import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
+import static android.R.layout.simple_list_item_multiple_choice;
+
 
 public class ReservationActivity extends Activity {
 
@@ -35,7 +37,7 @@ public class ReservationActivity extends Activity {
         gadgetListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         gadgetListView.setItemsCanFocus(false);
 
-        gadgetAdapter = new ArrayAdapter<Gadget>(this, android.R.layout.simple_list_item_multiple_choice, new ArrayList<>());
+        gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, new ArrayList<>());
         gadgetListView.setAdapter(gadgetAdapter);
 
         LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
@@ -63,6 +65,7 @@ public class ReservationActivity extends Activity {
                 }
                 Context context = ReservationActivity.this.getApplicationContext();
                 Intent intent = new Intent(context, MainViewActivity.class);
+                intent.putExtra("Switch tab", 2);
                 startActivity(intent);
             }
         });

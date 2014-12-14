@@ -52,6 +52,9 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
         for (String tabName : tabs) {
             actionBar.addTab(actionBar.newTab().setText(tabName).setTabListener(this));
         }
+
+        int currentTab = getIntent().getIntExtra("Switch tab", 0);
+        viewPager.setCurrentItem(currentTab);
     }
 
 
