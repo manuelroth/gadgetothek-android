@@ -43,9 +43,9 @@ public class RegisterActivity extends Activity {
         email = (EditText) findViewById(R.id.email);
         studentNumber = (EditText) findViewById(R.id.matrikelnr);
         firstPassword = (EditText) findViewById(R.id.first_password);
-        firstPassword.setTypeface( Typeface.DEFAULT );
+        firstPassword.setTypeface(Typeface.DEFAULT);
         secondPassword = (EditText) findViewById(R.id.second_password);
-        secondPassword.setTypeface( Typeface.DEFAULT );
+        secondPassword.setTypeface(Typeface.DEFAULT);
         secondPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -71,7 +71,7 @@ public class RegisterActivity extends Activity {
         registerProgressView = findViewById(R.id.register_progress);
     }
 
-    public void attemptRegister(){
+    public void attemptRegister() {
         // Reset errors.
         name.setError(null);
         email.setError(null);
@@ -90,18 +90,22 @@ public class RegisterActivity extends Activity {
         View focusView = null;
 
         // Check for a name
-        if(name.isEmpty()){
-            this.name.setError(getString(R.string.error_field_required));
+        if (name.isEmpty()) {
+            this.name.setError(getString(R.string.error_noname));
+            focusView = this.name;
+            cancel = true;
         }
 
         // Check for matrikelNr
-        if(matrikelNr.isEmpty()){
-            studentNumber.setError(getString(R.string.error_field_required));
+        if (matrikelNr.isEmpty()) {
+            studentNumber.setError(getString(R.string.error_nomatriklnr));
+            focusView = this.studentNumber;
+            cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            this.email.setError(getString(R.string.error_field_required));
+            this.email.setError(getString(R.string.error_no_email));
             focusView = this.email;
             cancel = true;
         } else if (!isEmailValid(email)) {
@@ -111,14 +115,22 @@ public class RegisterActivity extends Activity {
         }
 
         // Check for a valid firstPassword, if the user entered one.
-        if (!TextUtils.isEmpty(firstPassword) && !isPasswordValid(firstPassword)) {
+        if (TextUtils.isEmpty(firstPassword)) {
+            this.firstPassword.setError(getString(R.string.error_no_password));
+            focusView = this.firstPassword;
+            cancel = true;
+        } else if (!isPasswordValid(firstPassword)) {
             this.firstPassword.setError(getString(R.string.error_invalid_password));
             focusView = this.firstPassword;
             cancel = true;
         }
 
         // Check for a valid secondPassword, if the user entered one.
-        if (!TextUtils.isEmpty(secondPassword) && !isPasswordValid(secondPassword)) {
+        if (TextUtils.isEmpty(secondPassword)) {
+            this.secondPassword.setError(getString(R.string.error_no_password));
+            focusView = this.secondPassword;
+            cancel = true;
+        } else if (!isPasswordValid(secondPassword)) {
             this.secondPassword.setError(getString(R.string.error_invalid_password));
             focusView = this.secondPassword;
             cancel = true;
@@ -126,7 +138,7 @@ public class RegisterActivity extends Activity {
 
 
         // Check for equality of both passwords
-        if(!firstPassword.equals(secondPassword)){
+        if (!firstPassword.equals(secondPassword)) {
             this.secondPassword.setError(getString(R.string.error_passwords_notequal));
             focusView = this.secondPassword;
             cancel = true;
@@ -146,14 +158,14 @@ public class RegisterActivity extends Activity {
                     if (input) {
                         showProgress(false);
                         Context context = RegisterActivity.this.getApplicationContext();
-                        CharSequence text = "Registration successful";
+                        CharSequence text = "Registration erfolgreich";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
                         finish();
                     } else {
                         showProgress(false);
                         Context context = RegisterActivity.this.getApplicationContext();
-                        CharSequence text = "Registration unsuccessful";
+                        CharSequence text = "Registration nicht erfolgreich";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
                     }

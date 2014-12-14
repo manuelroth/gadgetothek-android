@@ -5,7 +5,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="ok">Ok</string>
     <string name="createReservation">Reservieren</string>
-    <string name="action_logout">Logout</string>
+    <string name="action_logout">Abmelden</string>
     <string name="action_reservations">Reservieren</string>
-
 </resources>

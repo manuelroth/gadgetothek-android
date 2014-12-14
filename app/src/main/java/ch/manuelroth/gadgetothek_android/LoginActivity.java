@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
@@ -28,7 +26,7 @@ import ch.manuelroth.gadgetothek_android.library.LibraryService;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity{
+public class LoginActivity extends Activity {
 
     // UI references.
     private EditText email;
@@ -44,7 +42,7 @@ public class LoginActivity extends Activity{
         // Set up the login form.
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        password.setTypeface( Typeface.DEFAULT );
+        password.setTypeface(Typeface.DEFAULT);
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -78,9 +76,9 @@ public class LoginActivity extends Activity{
         progressView = findViewById(R.id.login_progress);
 
         //Login m@hsr.ch
-        email.setText("m@hsr.ch");
+        /*email.setText("m@hsr.ch");
         password.setText("12345");
-        signInButton.performClick();
+        signInButton.performClick();*/
     }
 
     /**
@@ -100,21 +98,25 @@ public class LoginActivity extends Activity{
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            this.password.setError(getString(R.string.error_invalid_password));
-            focusView = this.password;
-            cancel = true;
-        }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            this.email.setError(getString(R.string.error_field_required));
+            this.email.setError(getString(R.string.error_no_email));
             focusView = this.email;
             cancel = true;
         } else if (!isEmailValid(email)) {
             this.email.setError(getString(R.string.error_invalid_email));
             focusView = this.email;
+            cancel = true;
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            this.password.setError(getString(R.string.error_no_password));
+            focusView = this.password;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            this.password.setError(getString(R.string.error_invalid_password));
+            focusView = this.password;
             cancel = true;
         }
 
@@ -129,18 +131,18 @@ public class LoginActivity extends Activity{
             LibraryService.login(email, password, new Callback<Boolean>() {
                 @Override
                 public void notfiy(Boolean input) {
-                    if(input){
+                    if (input) {
                         showProgress(false);
                         Context context = LoginActivity.this.getApplicationContext();
-                        CharSequence text = "Login successful";
+                        CharSequence text = "Anmeldung erfolgreich";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
-                        Intent intent = new Intent(context, MainViewActivity.class );
+                        Intent intent = new Intent(context, MainViewActivity.class);
                         startActivity(intent);
-                    }else{
+                    } else {
                         showProgress(false);
                         Context context = LoginActivity.this.getApplicationContext();
-                        CharSequence text = "Login unsuccessful";
+                        CharSequence text = "Bitte überprüfe deine Email Adresse und versuch es nochmal";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(context, text, duration).show();
                     }

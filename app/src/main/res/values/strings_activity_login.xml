@@ -3,12 +3,12 @@
     <!-- Strings related to login -->
     <string name="login_text">Willkommen zur HSR Gadget Bibliothek. Loggen Sie sich mit Ihren Daten ein oder registrieren Sie sich neu</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Login</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="action_sign_in">Anmelden</string>
     <string name="action_register">Registrieren</string>
 
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">Email Adresse ist ungültig</string>
+    <string name="error_no_email">Bitte gib eine Email Adresse ein</string>
+    <string name="error_no_password">Bitte gib eine Passwort ein</string>
+    <string name="error_invalid_password">Passwort ist zu kurz (min. 5 Zeichen)</string>
 </resources>

@@ -1,9 +1,11 @@
 <resources>
 
-    <!-- Strings related to login -->
     <string name="register_text">Geben Sie Ihre Daten ein um einen neuen Account zu registrieren</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_studentnumber">Matrikel Nummer</string>
-    <string name="prompt_secondpassword">Repeat password</string>
-    <string name="error_passwords_notequal">Passwords must be equal</string>
+    <string name="prompt_secondpassword">Passwort wiederholen</string>
+    <string name="error_passwords_notequal">Passwörter stimmen nicht überein</string>
+    <string name="error_noname">Name muss angegeben werden</string>
+    <string name="error_nomatriklnr">Matrikel Nummer muss angegeben werden</string>
+
 </resources>

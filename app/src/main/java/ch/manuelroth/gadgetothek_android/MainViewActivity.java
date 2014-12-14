@@ -76,14 +76,14 @@ public class MainViewActivity extends FragmentActivity implements ActionBar.TabL
             LibraryService.logout(input -> {
                 if (input) {
                     Context context = MainViewActivity.this.getApplicationContext();
-                    CharSequence text = "Logout successful";
+                    CharSequence text = "Abmeldung erfolgreich";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, text, duration).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     startActivity(intent);
                 } else {
                     Context context = MainViewActivity.this.getApplicationContext();
-                    CharSequence text = "Logout unsuccessful";
+                    CharSequence text = "Abmeldung war nicht erfolgreich";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, text, duration).show();
                 }
