@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -38,26 +39,32 @@ public class ReservationActivity extends Activity {
         gadgetListView.setAdapter(gadgetAdapter);
 
         LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
             SparseBooleanArray sp = gadgetListView.getCheckedItemPositions();
-            for (int i = 0; i < sp.size(); i++) {
-                int gadgetIndex = sp.keyAt(i);
-                if (sp.valueAt(i)) {
-                    Gadget gadget = (Gadget) gadgetAdapter.getItem(gadgetIndex);
+            if(getNumberOfReservations(sp) > 3){
+                Context context = ReservationActivity.this.getApplicationContext();
+                CharSequence text = "Es sind immer nur drei Reservationen zur gleichen Zeit erlaubt";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            }else{
+                for (int i = 0; i < sp.size(); i++) {
+                    int gadgetIndex = sp.keyAt(i);
+                    if (sp.valueAt(i)) {
+                        Gadget gadget = (Gadget) gadgetAdapter.getItem(gadgetIndex);
 
-                    LibraryService.reserveGadget(gadget, new Callback<List<Loan>>() {
-                        @Override
-                        public void notfiy(List<Loan> input) {
-                        }
-                    });
+                        LibraryService.reserveGadget(gadget, new Callback<List<Loan>>() {
+                            @Override
+                            public void notfiy(List<Loan> input) {
+                            }
+                        });
+                    }
                 }
+                Context context = ReservationActivity.this.getApplicationContext();
+                Intent intent = new Intent(context, MainViewActivity.class);
+                startActivity(intent);
             }
-            Context context = ReservationActivity.this.getApplicationContext();
-            Intent intent = new Intent(context, MainViewActivity.class);
-            startActivity(intent);
         });
     }
 
@@ -81,5 +88,17 @@ public class ReservationActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private int getNumberOfReservations(SparseBooleanArray sp){
+        int numberOfCheckedItems = 0;
+        int numberOfReservations = getIntent().getIntExtra("numberOfReservations", 0);
+
+        for(int i = 0; i < sp.size(); i++){
+            if(sp.valueAt(i)){
+                ++numberOfCheckedItems;
+            }
+        }
+        return numberOfReservations + numberOfCheckedItems;
     }
 }

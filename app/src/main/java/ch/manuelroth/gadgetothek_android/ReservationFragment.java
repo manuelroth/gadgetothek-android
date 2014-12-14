@@ -48,12 +48,13 @@ public class ReservationFragment extends Fragment {
         fab.setOnClickListener(v -> {
             if(reservationAdapter.getCount() == 3){
                 Context context = ReservationFragment.this.getActivity().getApplicationContext();
-                CharSequence text = "Only three reservation at the same time supported";
+                CharSequence text = "Es sind immer nur drei Reservationen zur gleichen Zeit erlaubt";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
             }else{
                 Context context = ReservationFragment.this.getActivity().getApplicationContext();
                 Intent intent = new Intent(context, ReservationActivity.class);
+                intent.putExtra("numberOfReservations", reservationAdapter.getCount());
                 startActivity(intent);
             }
         });
@@ -67,20 +68,20 @@ public class ReservationFragment extends Fragment {
         reservationListView.setOnItemClickListener((parent, view, position, id) -> {
             final Reservation reservation = (Reservation) parent.getItemAtPosition(position);
             AlertDialog.Builder adb = new AlertDialog.Builder(ReservationFragment.this.getActivity());
-            adb.setTitle("Delete reservation");
-            adb.setMessage("Are you sure you want to delete this reservation?");
+            adb.setTitle(R.string.deleteReservation);
+            adb.setMessage(R.string.deleteReservationQuestion);
             final int positionToRemove = position;
-            adb.setNegativeButton("Cancel", null);
-            adb.setPositiveButton("Ok", (dialog, which) -> LibraryService.deleteReservation(reservation, input -> {
+            adb.setNegativeButton(R.string.cancel, null);
+            adb.setPositiveButton(R.string.ok, (dialog, which) -> LibraryService.deleteReservation(reservation, input -> {
                 if (input) {
                     reservationAdapter.remove(reservation);
                     Context context = ReservationFragment.this.getActivity().getApplicationContext();
-                    CharSequence text = "Reservation deleted";
+                    CharSequence text = "Reservation gelöscht";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, text, duration).show();
                 } else {
                     Context context = ReservationFragment.this.getActivity().getApplicationContext();
-                    CharSequence text = "Reservation could not be deleted!";
+                    CharSequence text = "Reservation konnte nicht gelöscht werden!";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, text, duration).show();
                 }

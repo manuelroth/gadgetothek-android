@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="deleteReservation">Reservation löschen</string>
+    <string name="deleteReservationQuestion">"Möchtest du diese Reservation löschen?"</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">Ok</string>
     <string name="createReservation">Reservieren</string>
     <string name="action_logout">Logout</string>
     <string name="action_reservations">Reservieren</string>
-    <string name="noLoans">Keine Ausleihen. Möchtest du ein Gadget ausleihen?</string>
-    <string name="noReservations">Keine Reservationen. Möchtest du ein Gadget reservieren?</string>
-    <string name="nameColumnDescription">Name</string>
-    <string name="dueDateColumnDescription">Due Date</string>
-    <string name="lentColumnDescription">Lent till</string>
 
 </resources>
