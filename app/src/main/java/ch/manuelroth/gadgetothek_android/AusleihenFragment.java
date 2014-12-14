@@ -71,7 +71,7 @@ public class AusleihenFragment extends Fragment {
             }
 
             ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.thumbnail);
-            imageLoader.displayImage("http://recodetech.files.wordpress.com/2014/09/iphones-1685.jpg?w=256&h=256&crop=1", thumbnailView);
+            imageLoader.displayImage(loan.getGadget().getThumbnailUrl(), thumbnailView);
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
             TextView dueDateView = (TextView) convertView.findViewById(R.id.date);

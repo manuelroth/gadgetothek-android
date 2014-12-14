@@ -3,14 +3,15 @@ package ch.manuelroth.gadgetothek_android.bl;
 import java.util.UUID;
 
 public class Gadget {
-	
-	public enum Condition {NEW, GOOD, DAMAGED, WASTE, LOST }		
+
+    public enum Condition {NEW, GOOD, DAMAGED, WASTE, LOST }
 	private final String inventoryNumber;	
 	private Condition condition;
 	private double price;
 	private String manufacturer;
 	private String name;
-	
+	private String thumbnailUrl;
+
 	public Gadget(String name) {
 		this.name = name;
 		inventoryNumber = ""+Math.abs(UUID.randomUUID().getMostSignificantBits());
@@ -58,6 +59,14 @@ public class Gadget {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 
 	@Override
 	public int hashCode() {

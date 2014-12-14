@@ -126,7 +126,7 @@ public class ReservationFragment extends Fragment {
             }
 
             ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.thumbnail);
-            imageLoader.displayImage("http://www.homegenie.it/images/logos/rpiicon.png", thumbnailView);
+            imageLoader.displayImage(reservation.getGadget().getThumbnailUrl(), thumbnailView);
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
             TextView lentTillView = (TextView) convertView.findViewById(R.id.date);
