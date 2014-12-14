@@ -18,6 +18,7 @@ import java.util.List;
 
 import ch.manuelroth.gadgetothek_android.bl.Gadget;
 import ch.manuelroth.gadgetothek_android.bl.Loan;
+import ch.manuelroth.gadgetothek_android.bl.Reservation;
 import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
@@ -28,6 +29,7 @@ public class ReservationActivity extends Activity {
 
     private ListView gadgetListView;
     private ArrayAdapter gadgetAdapter = null;
+    private List<Reservation> reservationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,18 @@ public class ReservationActivity extends Activity {
 
         gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, new ArrayList<>());
         gadgetListView.setAdapter(gadgetAdapter);
+        LibraryService.getReservationsForCustomer(input -> {
+            reservationList.addAll(input);
+        });
+        LibraryService.getGadgets(input -> {
+            for(Reservation reservation : reservationList){
+                if(input.contains(reservation.getGadget())){
+                    input.remove(reservation.getGadget());
+                }
+            }
+            gadgetAdapter.addAll(input);
+        });
 
-        LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
