@@ -45,12 +45,19 @@ public class ReservationActivity extends Activity {
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
             SparseBooleanArray sp = gadgetListView.getCheckedItemPositions();
-            if(getNumberOfReservations(sp) > 3){
+            int numberOfCheckedItems = getNumberOfCheckedItems(sp);
+            int numberOfReservations = numberOfCheckedItems + getIntent().getIntExtra("numberOfReservations", 0);
+            if (numberOfCheckedItems == 0) {
+                Context context = ReservationActivity.this.getApplicationContext();
+                CharSequence text = "Kein Gadget ist ausgewählt";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            } else if (numberOfReservations > 3) {
                 Context context = ReservationActivity.this.getApplicationContext();
                 CharSequence text = "Es sind immer nur drei Reservationen zur gleichen Zeit erlaubt";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
-            }else{
+            } else {
                 for (int i = 0; i < sp.size(); i++) {
                     int gadgetIndex = sp.keyAt(i);
                     if (sp.valueAt(i)) {
@@ -93,15 +100,14 @@ public class ReservationActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private int getNumberOfReservations(SparseBooleanArray sp){
+    private int getNumberOfCheckedItems(SparseBooleanArray sp) {
         int numberOfCheckedItems = 0;
-        int numberOfReservations = getIntent().getIntExtra("numberOfReservations", 0);
 
-        for(int i = 0; i < sp.size(); i++){
-            if(sp.valueAt(i)){
+        for (int i = 0; i < sp.size(); i++) {
+            if (sp.valueAt(i)) {
                 ++numberOfCheckedItems;
             }
         }
-        return numberOfReservations + numberOfCheckedItems;
+        return numberOfCheckedItems;
     }
 }
