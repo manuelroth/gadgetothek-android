@@ -22,6 +22,7 @@ import java.util.List;
 
 import ch.manuelroth.gadgetothek_android.bl.Gadget;
 import ch.manuelroth.gadgetothek_android.bl.Loan;
+import ch.manuelroth.gadgetothek_android.bl.Reservation;
 import ch.manuelroth.gadgetothek_android.library.Callback;
 import ch.manuelroth.gadgetothek_android.library.LibraryService;
 
@@ -33,8 +34,8 @@ public class ReservationActivity extends Activity {
     private EditText searchTextView;
     private ListView gadgetListView;
     private List<Gadget> gadgetList = new ArrayList<Gadget>();
-    private List<Gadget> filteredGadgetList = new ArrayList<Gadget>();
     private ArrayAdapter gadgetAdapter = null;
+    private List<Reservation> reservationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +47,38 @@ public class ReservationActivity extends Activity {
 
         gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, new ArrayList<Gadget>());
         gadgetListView.setAdapter(gadgetAdapter);
+        LibraryService.getReservationsForCustomer(input -> {
+            reservationList.addAll(input);
+        });
+        LibraryService.getGadgets(input -> {
+            for(Reservation reservation : reservationList){
+                if(input.contains(reservation.getGadget())){
+                    input.remove(reservation.getGadget());
+                }
+            }
+            gadgetAdapter.addAll(input);
+        });
 
-        LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
+
         LibraryService.getGadgets(input -> gadgetList.addAll(input));
+        gadgetAdapter.addAll(gadgetList);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
             SparseBooleanArray sp = gadgetListView.getCheckedItemPositions();
-            if(getNumberOfReservations(sp) > 3){
+            int numberOfCheckedItems = getNumberOfCheckedItems(sp);
+            int numberOfReservations = numberOfCheckedItems + getIntent().getIntExtra("numberOfReservations", 0);
+            if (numberOfCheckedItems == 0) {
+                Context context = ReservationActivity.this.getApplicationContext();
+                CharSequence text = "Kein Gadget ist ausgewählt";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            } else if (numberOfReservations > 3) {
                 Context context = ReservationActivity.this.getApplicationContext();
                 CharSequence text = "Es sind immer nur drei Reservationen zur gleichen Zeit erlaubt";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
-            }else{
+            } else {
                 for (int i = 0; i < sp.size(); i++) {
                     int gadgetIndex = sp.keyAt(i);
                     if (sp.valueAt(i)) {
@@ -100,10 +120,8 @@ public class ReservationActivity extends Activity {
 
     private void filter(String filterText) {
         filterText = filterText.toLowerCase();
-        List<Gadget> filteredGadgetList = new ArrayList<Gadget>();
         gadgetAdapter.clear();
         if (filterText.length() == 0) {
-            //filteredGadgetList.addAll(gadgetList);
             gadgetAdapter.addAll(gadgetList);
         }
         else
@@ -115,13 +133,9 @@ public class ReservationActivity extends Activity {
                 if (gadget.getName().toLowerCase().contains(filterText))
                 {
                     gadgetAdapter.add(gadget);
-                    //filteredGadgetList.add(gadget);
                 }
             }
         }
-        //gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, filteredGadgetList);
-        //gadgetAdapter.addAll(filteredGadgetList);
-
         gadgetListView.setAdapter(gadgetAdapter);
     }
 
@@ -147,15 +161,14 @@ public class ReservationActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private int getNumberOfReservations(SparseBooleanArray sp){
+    private int getNumberOfCheckedItems(SparseBooleanArray sp) {
         int numberOfCheckedItems = 0;
-        int numberOfReservations = getIntent().getIntExtra("numberOfReservations", 0);
 
-        for(int i = 0; i < sp.size(); i++){
-            if(sp.valueAt(i)){
+        for (int i = 0; i < sp.size(); i++) {
+            if (sp.valueAt(i)) {
                 ++numberOfCheckedItems;
             }
         }
-        return numberOfReservations + numberOfCheckedItems;
+        return numberOfCheckedItems;
     }
 }

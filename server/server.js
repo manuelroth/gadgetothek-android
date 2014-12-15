@@ -62,24 +62,17 @@ customers.push({ name: 'Sepp', password: "12345", email: "s@hsr.ch", studentnumb
 customers.push({ name: 'Bob', password: "12345", email: "b@hsr.ch", studentnumber: "12" });
 customers.push({ name: 'Iris', password: "12345", email: "i@hsr.ch", studentnumber: "13" });
 
-gadgets.push({ name: 'IPhone', manufacturer: "apple", price: 500, inventoryNumber: "20" , condition : "NEW"});
-gadgets.push({ name: 'IPhone1', manufacturer: "apple", price: 500, inventoryNumber: "21" , condition : "NEW"});
-gadgets.push({ name: 'IPhone2', manufacturer: "apple", price: 500, inventoryNumber: "22" , condition : "NEW"});
-gadgets.push({ name: 'IPhone3', manufacturer: "apple", price: 500, inventoryNumber: "23" , condition : "NEW"});
-gadgets.push({ name: 'IPhone4', manufacturer: "apple", price: 500, inventoryNumber: "24" , condition : "NEW"});
-gadgets.push({ name: 'Android1', manufacturer: "Samsung", price: 500, inventoryNumber: "25" , condition : "NEW"});
-gadgets.push({ name: 'Android2', manufacturer: "Samsung", price: 500, inventoryNumber: "26" , condition : "NEW"});
-gadgets.push({ name: 'Android3', manufacturer: "Samsung", price: 500, inventoryNumber: "27" , condition : "NEW"});
-gadgets.push({ name: 'Android4', manufacturer: "Samsung", price: 500, inventoryNumber: "28" , condition : "NEW"});
-gadgets.push({ name: 'Android5', manufacturer: "Samsung", price: 500, inventoryNumber: "29" , condition : "NEW"});
-gadgets.push({ name: 'Android7', manufacturer: "Samsung", price: 500, inventoryNumber: "30" , condition : "NEW"});
-gadgets.push({ name: 'Android8', manufacturer: "Samsung", price: 500, inventoryNumber: "31" , condition : "NEW"});
-gadgets.push({ name: 'Android9', manufacturer: "Samsung", price: 500, inventoryNumber: "32" , condition : "NEW"});
-gadgets.push({ name: 'Android10', manufacturer: "Samsung", price: 500, inventoryNumber: "33" , condition : "NEW"});
+gadgets.push({ name: 'IPhone 6', manufacturer: "apple", price: 500, inventoryNumber: "20" , condition : "NEW", thumbnailUrl: "http://recodetech.files.wordpress.com/2014/09/iphones-1685.jpg?w=256&h=256&crop=1"});
+gadgets.push({ name: 'Raspberry PI', manufacturer: "raspberry", price: 500, inventoryNumber: "21" , condition : "NEW", thumbnailUrl: "https://cdn.sparkfun.com//assets/parts/7/4/9/7/11546-04.jpg"});
+gadgets.push({ name: 'Oculus Rift Headset', manufacturer: "Oculus", price: 500, inventoryNumber: "22" , condition : "NEW", thumbnailUrl: "http://assets.vr-zone.net/19610/EcFnHeRGAqCHKRpA_large.jpg"});
+gadgets.push({ name: 'Google Glass', manufacturer: "Google", price: 500, inventoryNumber: "23" , condition : "NEW", thumbnailUrl: "http://asset2.cbsistatic.com/cnwk.1d/i/tim2/2013/05/01/35339166-2_610x435.jpg"});
+gadgets.push({ name: 'Galaxy S5', manufacturer: "Samsung", price: 500, inventoryNumber: "25" , condition : "NEW", thumbnailUrl: "http://www.chip.de/ii/2/5/3/0/8/7/2/7/S5_Front_800-13025cd1fefde034.jpg"});
+gadgets.push({ name: 'HTC One', manufacturer: "HTC", price: 500, inventoryNumber: "26" , condition : "NEW", thumbnailUrl: "http://static.trustedreviews.com/94/000026a22/9a83/IMG-0128.jpg"});
+gadgets.push({ name: 'iBeacon', manufacturer: "Altatech", price: 500, inventoryNumber: "27" , condition : "NEW", thumbnailUrl: "http://www.oho.com/sites/default/files/downloads/ibeacon.jpg"});
 
-loans.push({ id: "40", gadgetId: '20', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
-loans.push({ id: "41", gadgetId: '21', customerId: "10", pickupDate : "2014-08-10T06:10:37.032Z", returnDate : null});
-loans.push({ id: "42", gadgetId: '22', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
+loans.push({ id: "40", gadgetId: '23', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
+loans.push({ id: "41", gadgetId: '26', customerId: "10", pickupDate : "2014-08-10T06:10:37.032Z", returnDate : null});
+loans.push({ id: "42", gadgetId: '25', customerId: "10", pickupDate : new Date().toJSON(), returnDate : null});
 
 reservations.push({ id: "80", gadgetId: '20', customerId: "10", reservationDate : "2014-08-22T06:10:37.032Z", finished: false});
 reservations.push({ id: "81", gadgetId: '21', customerId: "10", reservationDate : "2014-08-22T06:10:37.032Z", finished: false});

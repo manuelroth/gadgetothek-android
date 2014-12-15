@@ -16,9 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,7 +92,10 @@ public class ReservationFragment extends Fragment {
             adb.show();
         });
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        File cacheDir = StorageUtils.getCacheDirectory(getActivity());
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity())
+                .diskCache(new UnlimitedDiscCache(cacheDir))
+                .build();
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(config);
         
@@ -126,7 +132,7 @@ public class ReservationFragment extends Fragment {
             }
 
             ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.thumbnail);
-            imageLoader.displayImage("http://www.homegenie.it/images/logos/rpiicon.png", thumbnailView);
+            imageLoader.displayImage(reservation.getGadget().getThumbnailUrl(), thumbnailView);
 
             TextView gadgetNameView = (TextView) convertView.findViewById(R.id.gadgetName);
             TextView lentTillView = (TextView) convertView.findViewById(R.id.date);
