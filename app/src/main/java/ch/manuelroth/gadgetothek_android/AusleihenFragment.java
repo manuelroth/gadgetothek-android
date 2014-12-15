@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +47,10 @@ public class AusleihenFragment extends Fragment {
             loanAdapter.addAll(input);
         }));
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        File cacheDir = StorageUtils.getCacheDirectory(getActivity());
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity())
+                .diskCache(new UnlimitedDiscCache(cacheDir))
+                .build();
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(config);
 
