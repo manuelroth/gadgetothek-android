@@ -5,12 +5,25 @@
     android:layout_height="match_parent"
     tools:context=".ReservationActivity">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/editText"
+        android:layout_gravity="left|top"
+        android:clickable="true"
+        android:focusable="true"
+        android:enabled="true"
+        android:inputType="text" />
+
     <ListView
         android:id="@+id/gadgetListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:choiceMode="multipleChoice" />
+        android:choiceMode="multipleChoice"
+        android:paddingTop="35dp" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"

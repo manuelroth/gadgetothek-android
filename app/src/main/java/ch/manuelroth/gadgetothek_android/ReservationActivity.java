@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +30,10 @@ import static android.R.layout.simple_list_item_multiple_choice;
 
 public class ReservationActivity extends Activity {
 
+    private EditText searchTextView;
     private ListView gadgetListView;
+    private List<Gadget> gadgetList = new ArrayList<Gadget>();
+    private List<Gadget> filteredGadgetList = new ArrayList<Gadget>();
     private ArrayAdapter gadgetAdapter = null;
 
     @Override
@@ -37,10 +44,11 @@ public class ReservationActivity extends Activity {
         gadgetListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         gadgetListView.setItemsCanFocus(false);
 
-        gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, new ArrayList<>());
+        gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, new ArrayList<Gadget>());
         gadgetListView.setAdapter(gadgetAdapter);
 
         LibraryService.getGadgets(input -> gadgetAdapter.addAll(input));
+        LibraryService.getGadgets(input -> gadgetList.addAll(input));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(gadgetListView);
         fab.setOnClickListener(v -> {
@@ -69,6 +77,52 @@ public class ReservationActivity extends Activity {
                 startActivity(intent);
             }
         });
+        searchTextView = (EditText) ReservationActivity.this.findViewById(R.id.editText);
+        searchTextView.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = searchTextView.getText().toString().toLowerCase();
+                filter(text);
+            }
+        });
+    }
+
+    private void filter(String filterText) {
+        filterText = filterText.toLowerCase();
+        List<Gadget> filteredGadgetList = new ArrayList<Gadget>();
+        gadgetAdapter.clear();
+        if (filterText.length() == 0) {
+            //filteredGadgetList.addAll(gadgetList);
+            gadgetAdapter.addAll(gadgetList);
+        }
+        else
+        {
+
+
+            for (Gadget gadget : gadgetList)
+            {
+                if (gadget.getName().toLowerCase().contains(filterText))
+                {
+                    gadgetAdapter.add(gadget);
+                    //filteredGadgetList.add(gadget);
+                }
+            }
+        }
+        //gadgetAdapter = new ArrayAdapter<Gadget>(this, simple_list_item_multiple_choice, filteredGadgetList);
+        //gadgetAdapter.addAll(filteredGadgetList);
+
+        gadgetListView.setAdapter(gadgetAdapter);
     }
 
     @Override
